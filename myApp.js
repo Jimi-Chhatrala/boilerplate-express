@@ -1,8 +1,19 @@
+let bodyParser = require("body-parser");
 require("dotenv").config();
 let express = require("express");
 let app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
+
 console.log("Hello World");
+
+app.post("/name", function (req, res) {
+  let { first: firstname, last: lastname } = req.body;
+  let fullName = `${firstname} ${lastname}`;
+  res.json({ name: fullName });
+});
 
 app.get("/name", function (req, res) {
   let { first: firstname, last: lastname } = req.query;
